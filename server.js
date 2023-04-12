@@ -8,15 +8,9 @@ require('dotenv').config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// SEQUELIZE CONNECTION
-const sequelize = new Sequelize(process.env.PG_URI)
-
-try {
-    sequelize.authenticate()
-    console.log('Database connected on port 5432')
-} catch(err) {
-    console.log(err)
-}
+// CONTROLLERS
+const bandsController = require('./controllers/bands_controller')
+app.use('/bands', bandsController)
 
 // ROOT
 app.get('/', (req, res) => {
